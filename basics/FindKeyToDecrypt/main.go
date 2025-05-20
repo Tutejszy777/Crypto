@@ -31,7 +31,6 @@ func main() {
 		strBuilder.Write(decrypted)
 		Map[uint8(key)] = strBuilder.String()
 		strBuilder.Reset()
-		key++
 	}
 
 	// can be improved by adding a more key to the map
