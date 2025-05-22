@@ -5,32 +5,25 @@ import (
 	"fmt"
 )
 
-const decrypt = "Burning 'em, if you ain't quick and nimble"
-"I go crazy when I hear a cymbal"
+const input = `Burning 'em, if you ain't quick and nimble
+I go crazy when I hear a cymbal`
 
 const key = "ICE"
 
 func main() {
-	bytes, err := hex.DecodeString(decrypt)
-	if err != nil {
-		fmt.Println("Error decoding hex string:", err)
-		return
-	}
-
-	decrypted := xorByKey(bytes, []byte(key), len(key))
+	// encryption
+	encrypted := xorByKey([]byte(input), []byte(key))
+	fmt.Printf("Encrypted (hex): %s\n", hex.EncodeToString(encrypted))
+	// decryption
+	decrypted := xorByKey(encrypted, []byte(key))
 	fmt.Printf("Decrypted: %s\n", string(decrypted))
+
 }
 
-func xorByKey(bytes []byte, key []byte, keylength int) []byte {
-	var keyIndex int = 0
-	for i, j := range bytes {
-		if keyIndex == keylength-1 {
-			keyIndex = 0
-		} else {
-			keyIndex++
-		}
-		bytes[i] = j ^ key[keyIndex]
+func xorByKey(data []byte, key []byte) []byte {
+	result := make([]byte, len(data))
+	for i := range data {
+		result[i] = data[i] ^ key[i%len(key)]
 	}
-
-	return bytes
+	return result
 }
