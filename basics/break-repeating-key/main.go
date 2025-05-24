@@ -11,8 +11,13 @@ const input = `this is a test`
 const input2 = `wokka wokka!!!`
 
 func main() {
-	for keylength := 2; keylength < 40; keylength++ {
+	//normalizedMap := make(map[int]float32)
 
+	for KEYSIZE := 2; KEYSIZE < 40; KEYSIZE++ {
+		block := make([]byte, KEYSIZE)
+		block2 := make([]byte, KEYSIZE)
+
+		distance := HammingDistance(block, block2) / KEYSIZE
 	}
 
 	dist := HammingDistance([]byte(input), []byte(input2))
