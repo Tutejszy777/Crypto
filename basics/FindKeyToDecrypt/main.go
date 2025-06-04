@@ -22,7 +22,9 @@ func main() {
 	var strBuilder strings.Builder
 
 	for key := 0; key <= 255; key++ {
-		decrypted := bytes
+		// create a copy so each iteration starts with the original bytes
+		decrypted := make([]byte, len(bytes))
+		copy(decrypted, bytes)
 
 		for i, j := range decrypted {
 			decrypted[i] = j ^ byte(key)
